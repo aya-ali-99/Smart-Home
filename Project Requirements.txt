@@ -1,0 +1,56 @@
+
+
+Smart Home:
+	1- Control FANs, AC, ILL(Room1,R2,R3)
+	2- Door Security Access 
+	3- Monitoring Temp, Humidity
+
+
+#1 FANs turned on if Temp >=30 && <= 35
+
+#2 AC turned on if Temp > 35
+
+#3 ILL turned on by frame structure:
+	*I*1*1# -> ON R1
+	*I*2*0# -> OFF R2
+
+#4 Door Access:
+	User send: 
+	<- *A*1# -> Open Door Access
+	-> "Enter Passord: "
+	<- 123
+	[if correct]-> Correct Password
+	open the door by rotating DC motor
+
+	wrong passord trials = 3
+	session timeout = 5 seconds, send "Timeout"
+	Default password = "123".
+	Passowrd max len = 10 bytes.
+
+#5 New Pass:
+	<- *P#  
+	-> "Enter Old Password: "
+	<- 123\n
+	-> Check old pwd, if correct then cont.
+	-> "Enter New Password: "
+	<- 456\n
+	-> "Reenter the New Password: "
+	<- 456\n
+	-> Check pwd1 and pwd2, if equally then update pwd
+
+MCU
+R1 		LED
+R2 		LED
+R3 		LED
+AC 		LED
+Door 	Motor
+FAN 	Motor
+Note: use terminal as if a remote control device.
+
+Recommended:
+	1- Best Modularity (Not Overfit).
+	2- More Comments ( >= 50)
+	3- Start with designs:
+		- System Design (task, hardware)
+		- component Design
+	4- Using State machine concept with diagrams.
